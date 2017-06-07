@@ -45,7 +45,11 @@ public class NumberActivity extends AppCompatActivity {
         */
 
         //ArrayList On Android (Stack)
-        ArrayList<String> words = new ArrayList<String>();
+        ArrayList<Word> words = new ArrayList<Word>();
+        words.add(new Word("one","lette"));
+        words.add(new Word("two","cocolatte"));
+        words.add(new Word("three","banana"));
+        /*
         words.add("one");
         words.add("two");
         words.add("three");
@@ -56,7 +60,7 @@ public class NumberActivity extends AppCompatActivity {
         words.add("eight");
         words.add("nine");
         words.add("ten");
-
+        */
         //LinearLayout rootView = (LinearLayout)findViewById(R.id.rootView);
 
         /*
@@ -81,7 +85,7 @@ public class NumberActivity extends AppCompatActivity {
         */
 
         //Array Adapte
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, words);
+        WordAdapter itemsAdapter = new WordAdapter(this, words);
 
         //ListView
         ListView listView = (ListView)findViewById(R.id.list);
