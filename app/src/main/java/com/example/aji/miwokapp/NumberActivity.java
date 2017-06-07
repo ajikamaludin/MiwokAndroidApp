@@ -4,7 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,14 +57,41 @@ public class NumberActivity extends AppCompatActivity {
         words.add("nine");
         words.add("ten");
 
-        LinearLayout rootView = (LinearLayout)findViewById(R.id.rootView);
-        //TextView wordview = new TextView(this);
-        //wordview.setText(words.get(0));
-        //rootView.addView(wordview);
+        //LinearLayout rootView = (LinearLayout)findViewById(R.id.rootView);
+
+        /*
+        //MyLoop
         for (int i = 0 ;i < words.size(); i++){
             TextView wordview = new TextView(this);
             wordview.setText(words.get(i));
             rootView.addView(wordview);
         }
+        */
+
+        //Udacity Example Loop
+        /*
+        int index = 0;
+        while(index < words.size()){
+            TextView wordview = new TextView(this);
+            wordview.setText(words.get(index));
+            rootView.addView(wordview);
+            Log.v("Sy:","index - "+index+" : " + words.get(index));
+            index++;
+        }
+        */
+
+        //Array Adapte
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, words);
+
+        //ListView
+        ListView listView = (ListView)findViewById(R.id.list);
+        listView.setAdapter(itemsAdapter);
+
+        //GridView
+        /*
+        GridView gridview = (GridView)findViewById(R.id.gridview);
+        gridview.setAdapter(itemsAdapter);
+        */
+
     }
 }
