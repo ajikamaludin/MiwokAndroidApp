@@ -20,6 +20,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
     private static final String LOG_TAG = WordAdapter.class.getSimpleName();
 
+    /*
+    Constructor
+     */
     public WordAdapter(Activity context, ArrayList<Word> word){
         super(context, 0, word);
     }
@@ -31,8 +34,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         View listItemView = convertView;
         if(listItemView == null){
-            listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_items,parent,false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_items, parent, false);
         }
 
         Word nameWord = getItem(position);
