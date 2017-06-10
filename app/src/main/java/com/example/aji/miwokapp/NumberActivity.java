@@ -1,7 +1,11 @@
 package com.example.aji.miwokapp;
 
+import android.app.ActionBar;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -84,14 +88,20 @@ public class NumberActivity extends AppCompatActivity {
             index++;
         }
         */
-
+        
         //Array Adapte
         WordAdapter itemsAdapter = new WordAdapter(this, words, R.color.category_numbers);
 
         //ListView
         ListView listView = (ListView)findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,View view,int i,long l){
+                MediaPlayer mediaPlayer = MediaPlayer.create(NumberActivity.this, R.raw.number_one);
+                mediaPlayer.start();
+            }
+        });
         //GridView
         /*
         GridView gridview = (GridView)findViewById(R.id.gridview);
