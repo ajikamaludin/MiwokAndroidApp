@@ -6,10 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class PhraseActivity extends AppCompatActivity {
+
+    MediaPlayer mediaPlayer;
+
+    private MediaPlayer.OnCompletionListener mComplateListener = new MediaPlayer.OnCompletionListener(){
+        @Override
+        public void onCompletion(MediaPlayer mp){
+            releaseMediaPlayer();
+            Toast.makeText(getApplicationContext(),"I'm DONE",Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +51,26 @@ public class PhraseActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
                 Word word = words.get(position);
-                MediaPlayer mediaPlayer = MediaPlayer.create(PhraseActivity.this, word.getRawResourceId());
+                releaseMediaPlayer();
+                mediaPlayer = MediaPlayer.create(PhraseActivity.this, word.getRawResourceId());
                 mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(mComplateListener);
             }
         });
 
+    }
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mediaPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mediaPlayer.release();
+
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mediaPlayer = null;
+
+        }
     }
 }
