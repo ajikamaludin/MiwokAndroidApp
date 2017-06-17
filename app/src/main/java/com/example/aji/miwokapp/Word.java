@@ -27,20 +27,27 @@ public class Word {
     private static final int NO_IMAGE_PROVIDE = -1;
 
     /*
+        sound resorce id
+     */
+    private int mRawResourceId;
+
+    /*
      * contruktor to set the word
      */
-    public Word(String defaultTranslation, String miwokTranslation) {
+    public Word(String defaultTranslation, String miwokTranslation, int RawResourceId) {
         mDefaultTranslation = defaultTranslation;
         mMiwokTranslation = miwokTranslation;
+        mRawResourceId = RawResourceId;
     }
 
     /*
      * second contruktor to set the word with image
      */
-    public Word(String defaultTranslation, String miwokTranslation, int ImageResourceId) {
+    public Word(String defaultTranslation, String miwokTranslation, int ImageResourceId, int RawResourceId) {
         mDefaultTranslation = defaultTranslation;
         mMiwokTranslation = miwokTranslation;
         mImageResourceId = ImageResourceId;
+        mRawResourceId = RawResourceId;
     }
 
     /*
@@ -62,6 +69,13 @@ public class Word {
      */
     public int getImageResourceId() {
         return mImageResourceId;
+    }
+
+    /*
+        get the raw id
+     */
+    public int getRawResourceId() {
+        return mRawResourceId;
     }
 
     /*
