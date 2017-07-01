@@ -40,7 +40,6 @@
     <TextView
         style="@style/CategoryStyle"
         android:background="@color/category_numbers"
-        android:text="Belajar App Android Dari Udacity\nOleh Aji Kamaludin"
-        android:onClick="openNumberActivity"/>
+        android:text="Belajar App Android Dari Udacity\nOleh Aji Kamaludin"/>
 
 </LinearLayout>
