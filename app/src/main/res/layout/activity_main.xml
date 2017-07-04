@@ -37,9 +37,4 @@
         android:text="@string/category_phrases"
         android:onClick="openPhraseActivity"/>
 
-    <TextView
-        style="@style/CategoryStyle"
-        android:background="@color/category_numbers"
-        android:text="Belajar App Android Dari Udacity\nOleh Aji Kamaludin"/>
-
 </LinearLayout>

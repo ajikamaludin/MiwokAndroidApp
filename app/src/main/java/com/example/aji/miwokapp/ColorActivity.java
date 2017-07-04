@@ -1,5 +1,7 @@
 package com.example.aji.miwokapp;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,18 +16,51 @@ public class ColorActivity extends AppCompatActivity {
 
     MediaPlayer mediaPlayer;
 
+    private AudioManager mAudioManager;
+
     private MediaPlayer.OnCompletionListener mComplateListener = new MediaPlayer.OnCompletionListener(){
         @Override
         public void onCompletion(MediaPlayer mp){
             releaseMediaPlayer();
-            Toast.makeText(getApplicationContext(),"I'm DONE",Toast.LENGTH_SHORT).show();
         }
     };
+
+    AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                public void onAudioFocusChange(int focusChane){
+                    if(focusChane == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                            focusChane == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK){
+                        mediaPlayer.pause();
+                        mediaPlayer.seekTo(0);
+                    } else if(focusChane == AudioManager.AUDIOFOCUS_GAIN){
+                        mediaPlayer.start();
+                    } else if(focusChane == AudioManager.AUDIOFOCUS_LOSS) {
+                        releaseMediaPlayer();
+                    }
+                }
+            };
+
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mediaPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mediaPlayer.release();
+
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mediaPlayer = null;
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         //ArrayList On Android (Stack)
 
@@ -49,26 +84,29 @@ public class ColorActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
                 Word word = words.get(position);
-                mediaPlayer = MediaPlayer.create(ColorActivity.this, word.getRawResourceId());
-                mediaPlayer.start();
-                mediaPlayer.setOnCompletionListener(mComplateListener);
+                //Request Audio Focus
+                int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN
+                );
+
+                if(result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    // Logging From Class Word Have Function To String
+                    // Log.v("NumbersActivity", "Current word: " + word.toString());
+                    releaseMediaPlayer();
+                    mediaPlayer = MediaPlayer.create(ColorActivity.this, word.getRawResourceId());
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(mComplateListener);
+                }
+
             }
         });
 
     }
 
-    private void releaseMediaPlayer() {
-        // If the media player is not null, then it may be currently playing a sound.
-        if (mediaPlayer != null) {
-            // Regardless of the current state of the media player, release its resources
-            // because we no longer need it.
-            mediaPlayer.release();
-
-            // Set the media player back to null. For our code, we've decided that
-            // setting the media player to null is an easy way to tell that the media player
-            // is not configured to play an audio file at the moment.
-            mediaPlayer = null;
-
-        }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
     }
 }
