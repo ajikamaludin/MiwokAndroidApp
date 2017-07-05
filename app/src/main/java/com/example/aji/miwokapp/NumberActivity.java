@@ -62,6 +62,7 @@ public class NumberActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.word_list);
         /* // Array On Android Studio
         String[] words = new String[10];
