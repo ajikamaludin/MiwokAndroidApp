@@ -2,6 +2,7 @@ package com.example.aji.miwokapp;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,35 +16,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        Log.v("here :","this");
+        CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager());
 
-    /*//This is a Listener Example
-        NumbersClickListener clickListener = new NumbersClickListener();
+        viewPager.setAdapter(adapter);
 
-        TextView numbers = (TextView)findViewById(R.id.numbers);
-
-        numbers.setOnClickListener(clickListener);
-    */
-
-    }
-
-    public void openNumberActivity(View view) {
-        Intent N = new Intent(this, NumberActivity.class);
-        startActivity(N);
-    }
-
-
-    public void openFamiliActivity(View view) {
-        Intent F = new Intent(this, FamilyAcvtivity.class);
-        startActivity(F);
-    }
-
-    public void openColorActivity(View view) {
-        Intent C = new Intent(this, ColorActivity.class);
-        startActivity(C);
-    }
-
-    public void openPhraseActivity(View view) {
-        Intent P = new Intent(this, PhraseActivity.class);
-        startActivity(P);
     }
 }

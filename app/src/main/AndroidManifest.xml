@@ -12,26 +12,9 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".NumberActivity"
-            android:label="@string/category_numbers"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".FamilyAcvtivity"
-            android:label="@string/category_family"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ColorActivity"
-            android:label="@string/category_colors"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".PhraseActivity"
-            android:label="@string/category_phrases"
-            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
